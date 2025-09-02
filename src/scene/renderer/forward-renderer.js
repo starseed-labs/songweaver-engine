@@ -588,6 +588,12 @@ class ForwardRenderer extends Renderer {
             const material = drawCall.material;
             const lightMask = drawCall.mask;
 
+            // guard against missing shader instance or shader (can occur if material fails to provide a variant)
+            if (!shaderInstance || !shaderInstance.shader) {
+                Debug.warnOnce('ForwardRenderer: missing shader for mesh instance', drawCall.node?.name, material?.name);
+                continue;
+            }
+
             if (shaderInstance.shader.failed) continue;
 
             if (newMaterial) {
