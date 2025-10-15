@@ -225,8 +225,8 @@ class WebgpuGraphicsDevice extends GraphicsDevice {
             };
 
             const results = await Promise.all([
-                import(`${buildUrl(twgslUrl)}`).then(module => twgsl(twgslUrl.replace('.js', '.wasm'))),
-                import(`${buildUrl(glslangUrl)}`).then(module => module.default())
+                import(/* @vite-ignore */ `${buildUrl(twgslUrl)}`).then(module => twgsl(twgslUrl.replace('.js', '.wasm'))),
+                import(/* @vite-ignore */ `${buildUrl(glslangUrl)}`).then(module => module.default())
             ]);
 
             this.twgsl = results[0];
